@@ -1,0 +1,41 @@
+
+Sub Macro2()
+    Selection.NextField.Select
+    Selection.Font.Name = "Arial"
+    Selection.Font.Size = 12
+End Sub
+
+Sub Macro1()
+Dim fso As New FileSystemObject
+' Declare a TextStream.
+'Dim stream As TextStream
+
+' Create a TextStream.
+Set stream = fso.CreateTextFile(ActiveDocument.Path & Application.PathSeparator & "fields.txt", True)
+
+' iterae styles collection
+For Each sty In ActiveDocument.Styles
+   ' stream.WriteLine (ActiveDocument.Styles(sty).NameLocal)
+    'If ActiveDocument.Styles(sty).InUse Then
+    '    If ActiveDocument.Styles(sty).BaseStyle = "Normal" Then
+    '        MsgBox sty
+        'stream.WriteLine ("Name: " & ActiveDocument.Styles(sty).NameLocal & ", Base Style: " & ActiveDocument.Styles(sty).BaseStyle & ", In Use: " & ActiveDocument.Styles(sty).InUse)
+        If ActiveDocument.Styles(sty).InUse Then
+            If ActiveDocument.Styles(sty).Font.Size = 10 Then
+             ActiveDocument.Styles(sty).Font.Size = 11
+            End If
+        End If
+    '    End If
+    'End If
+Next sty
+
+End Sub
+Sub Macro3()
+'
+' Macro3 Macro
+'
+'
+    Selection.ShapeRange.Top = -88.5
+    Selection.ShapeRange.Left = -345.5
+    
+End Sub
