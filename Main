@@ -1,3 +1,12 @@
+Option Explicit
+Const wdReplaceAll = 2
+
+Public Sub Main()
+'Remove_WhiteSpaces
+'Adverb_RemoveHypen
+MyList_SentenceCase
+End Sub
+
 Private Sub Remove_WhiteSpaces()
 
 Dim objSelection
@@ -6,15 +15,54 @@ objSelection.HomeKey (wdStory)
 
 Do
     With objSelection.Find
+        .ClearFormatting
         .Text = " [ ]@([! ])"
         .MatchAllWordForms = False
         .MatchSoundsLike = False
         .MatchFuzzy = False
         .MatchWildcards = True
         .Forward = True
-        .Replacement.Text = " \1"
+        .Replacement.Text = Chr(32) & "\1"
         .Execute , , , , , , , , , , wdReplaceAll
     End With
 Loop While objSelection.Find.Found
 
 End Sub
+
+Private Sub Adverb_RemoveHypen()
+
+Dim objSelection
+Set objSelection = Selection
+objSelection.HomeKey (wdStory)
+
+Do
+    With objSelection.Find
+        .ClearFormatting
+        .Text = "[-^=^+]ly>"
+        .MatchAllWordForms = False
+        .MatchSoundsLike = False
+        .MatchFuzzy = False
+        .MatchWildcards = True
+        .Forward = True
+        .Replacement.Text = "ly"
+        .Execute , , , , , , , , , , wdReplaceAll
+    End With
+Loop While objSelection.Find.Found
+
+End Sub
+
+Private Sub MyList_SentenceCase()
+
+Dim objSelection
+Dim Paragraph, Paragraphs
+Set Paragraphs = ActiveDocument.Paragraphs
+Set objSelection = Selection
+
+objSelection.HomeKey (wdStory)
+For Each Paragraph In Paragraphs
+    If (Paragraph.Range.ListFormat.ListType) Then
+      Paragraph.Range.Text = UCase(Left(Paragraph.Range.Text, 1)) & Mid(Paragraph.Range.Text, 2, Len(Paragraph.Range.Text) - 1)
+    End If
+Next Paragraph
+End Sub
+
