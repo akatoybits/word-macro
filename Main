@@ -1,0 +1,20 @@
+Private Sub Remove_WhiteSpaces()
+
+Dim objSelection
+Set objSelection = Selection
+objSelection.HomeKey (wdStory)
+
+Do
+    With objSelection.Find
+        .Text = " [ ]@([! ])"
+        .MatchAllWordForms = False
+        .MatchSoundsLike = False
+        .MatchFuzzy = False
+        .MatchWildcards = True
+        .Forward = True
+        .Replacement.Text = " \1"
+        .Execute , , , , , , , , , , wdReplaceAll
+    End With
+Loop While objSelection.Find.Found
+
+End Sub
