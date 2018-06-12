@@ -52,17 +52,10 @@ Loop While objSelection.Find.Found
 End Sub
 
 Private Sub MyList_SentenceCase()
-
-Dim objSelection
-Dim Paragraph, Paragraphs
-Set Paragraphs = ActiveDocument.Paragraphs
-Set objSelection = Selection
-
-objSelection.HomeKey (wdStory)
-For Each Paragraph In Paragraphs
-    If (Paragraph.Range.ListFormat.ListType) Then
-      Paragraph.Range.Text = UCase(Left(Paragraph.Range.Text, 1)) & Mid(Paragraph.Range.Text, 2, Len(Paragraph.Range.Text) - 1)
-    End If
-Next Paragraph
+Dim mypara, list, i
+For i = 1 To ActiveDocument.Lists.Count
+For Each mypara In ActiveDocument.Lists(i).ListParagraphs
+ mypara.Range.Bold = True
+Next mypara
+Next i
 End Sub
-
