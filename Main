@@ -59,3 +59,29 @@ For Each mypara In ActiveDocument.Lists(i).ListParagraphs
 Next mypara
 Next i
 End Sub
+
+Function UCase_FirtCharList()
+'<init>
+Dim objDoc As Document
+Set objDoc = ActiveDocument
+'</init>
+'<loop>
+Dim i As Integer
+For i = objDoc.ListParagraphs.Count To 1 Step -1
+    
+    Dim para_Range As Range
+    Set para_Range = objDoc.ListParagraphs(i).Range
+        'search for all the useful characters
+        If para_Range.Text Like "*[a-zA-Z]*" Then
+            Dim ilast_word As Integer
+            For ilast_word = para_Range.words.Count To 1 Step -1
+                'search for the truetype paragraph end
+                If Trim(para_Range.words(ilast_word)) Like "*[a-zA-Z0-9.?!:-_+]*" Then
+                    Exit For
+                End If
+            Next
+        para_Range.words(1).Characters(1).Text = LCase(para_Range.words(1).Characters(1).Text)
+        End If
+Next
+'</loop>
+End Function
