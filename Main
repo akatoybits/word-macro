@@ -38,7 +38,7 @@ objSelection.HomeKey (wdStory)
 Do
     With objSelection.Find
         .ClearFormatting
-        .Text = "[-^=^+]ly>"
+        .Text = "ly>[-^=^+]"
         .MatchAllWordForms = False
         .MatchSoundsLike = False
         .MatchFuzzy = False
@@ -51,16 +51,7 @@ Loop While objSelection.Find.Found
 
 End Sub
 
-Private Sub MyList_SentenceCase()
-Dim mypara, list, i
-For i = 1 To ActiveDocument.Lists.Count
-For Each mypara In ActiveDocument.Lists(i).ListParagraphs
- mypara.Range.Bold = True
-Next mypara
-Next i
-End Sub
-
-Function UCase_FirtCharList()
+Function UCase_FirstCharList()
 '<init>
 Dim objDoc As Document
 Set objDoc = ActiveDocument
