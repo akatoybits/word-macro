@@ -76,3 +76,10 @@ For i = objDoc.ListParagraphs.Count To 1 Step -1
 Next
 '</loop>
 End Function
+Sub AutoSpellCorrect()
+Dim Rng As Range
+For Each Rng In ActiveDocument.Range.SpellingErrors
+  Rng.Comments.Add Rng, "Check spelling"
+Next
+End Sub
+
