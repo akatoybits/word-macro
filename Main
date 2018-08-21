@@ -83,3 +83,23 @@ For Each Rng In ActiveDocument.Range.SpellingErrors
 Next
 End Sub
 
+==================================================
+Private Sub Xbatalion()
+Dim objPara As Paragraph
+Dim objWord As Range
+
+For Each objPara In ActiveDocument.Paragraphs
+     
+If Not objPara.Range.Characters.Last.Previous Like "[.!?;:-]" Then
+    If MsgBox(objPara.Range.Text, vbYesNo, "Is this a title?") = vbYes Then
+        For Each objWord In objPara.Range.words
+            If Trim(LCase(objWord)) = "but" Then
+                objWord.Comments.Add objWord, "Hit"
+                objWord.Text = LCase(objWord)
+            End If
+        Next
+    End If
+End If
+Next
+
+End Sub
