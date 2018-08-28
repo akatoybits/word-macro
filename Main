@@ -84,18 +84,18 @@ Next
 End Sub
 
 ==================================================
-Private Sub Xbatalion()
+Private Sub Words_ToLower()
+Dim arev As Revisions
 Dim objPara As Paragraph
 Dim objWord As Range
 
 For Each objPara In ActiveDocument.Paragraphs
-     
 If Not objPara.Range.Characters.Last.Previous Like "[.!?;:-]" Then
     If MsgBox(objPara.Range.Text, vbYesNo, "Is this a title?") = vbYes Then
         For Each objWord In objPara.Range.words
-            If Trim(LCase(objWord)) = "but" Then
-                objWord.Comments.Add objWord, "Hit"
-                objWord.Text = LCase(objWord)
+            If IsInArray(Trim(LCase(objWord))) = True Then
+                objWord.Case = wdLowerCase
+               ' objWord.Comments.Add objWord, "Hit"
             End If
         Next
     End If
@@ -103,3 +103,24 @@ End If
 Next
 
 End Sub
+
+Function IsInArray(stringToBeFound As String) As Boolean
+  Dim i As Integer
+  Dim arr() As Variant
+  arr = Array("for", "and", "nor", "but", "or", "about", "among", _
+  "beyond", "during", "including", "on", "throughout", "upon", "above", _
+  "around", "but", "except", "into", "out", "to", "with", "across", "at", "by", _
+  "following", "like", "over", "towards", "within", "after", "before", "concerning", _
+  "for", "near", "plus", "under", "without", "against", "behind", "despite", "from", _
+  "of", "since", "until", "regarding", "along", "between", "down", "in", "off", _
+  "through", "up", "versus", "considering", "the", "a", "an", "to", "as")
+
+For i = LBound(arr) To UBound(arr)
+    If arr(i) = stringToBeFound Then
+        IsInArray = True
+        Exit Function
+    End If
+Next i
+IsInArray = False
+End Function
+ 
