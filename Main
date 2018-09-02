@@ -124,3 +124,39 @@ Next i
 IsInArray = False
 End Function
  
+ Private Sub replace_space_para()
+
+    Selection.Find.ClearFormatting
+    With Selection.Find
+        .Text = "^13[ ]{1,}"
+        .Replacement.Text = "^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = True
+        .MatchSoundsLike = False
+    End With
+         Selection.Find.Execute Replace:=wdReplaceAll
+
+End Sub
+
+Private Sub replace_space_para_last()
+
+    Selection.Find.ClearFormatting
+    
+    With Selection.Find
+        .Text = "[ ]{1,}^13"
+        .Replacement.Text = "^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = True
+        .MatchSoundsLike = False
+    End With
+         Selection.Find.Execute Replace:=wdReplaceAll
+
+End Sub
